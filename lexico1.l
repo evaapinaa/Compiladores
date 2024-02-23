@@ -23,7 +23,7 @@ entero              {digito}+
 <COMENT>([^*]|[*]+[^*/])*                         ;
 <COMENT>[*]+"/"                                   { BEGIN(0); }
 <COMENT><<EOF>>                                   { 
-                                                    fprintf(stderr, "Error léxico: comentario sin cerrar\n");
+                                                    fprintf(stderr, "\nError léxico (línea %d): comentario sin cerrar\n");
                                                     return 0; 
                                                   }
 
@@ -37,14 +37,14 @@ print                               return PRINT;
 read                                return READ;
 
   /* Cadenas */
-\"([^"]|\\\\|\\\")*\"               { printf("Cadena: --%s--\n",yytext); }
+\"([^"]|\\\\|\\\")*\"               { printf("Cadena: \"%s\"\n",yytext); return STRING; }
 
 
 ({letra}|_)({letra}|{digito}|_)*    {
                                         if(comprobarLongitud(yyleng)) {
                                           return ID;
                                         } else {
-                                          fprintf(stderr, "Error léxico: en la línea %d, cadena demasiado larga \"%s\"\n", yylineno, yytext);
+                                          fprintf(stderr, "\nError léxico (línea %d): cadena demasiado larga \"%s\"\n", yylineno, yytext);
                                           return ID;
                                         }
                                     }
@@ -53,7 +53,7 @@ read                                return READ;
                                         if(comprobarNumero(yytext)) {
                                           return INTLITERAL;
                                         } else {
-                                          fprintf(stderr, "Error léxico: en la línea %d, entero demasiado grande \"%s\"\n",yylineno, yytext);
+                                          fprintf(stderr, "\nError léxico (línea %d): entero demasiado grande \"%s\"\n",yylineno, yytext);
                                           return INTLITERAL;
                                         }
                                     }
@@ -68,13 +68,20 @@ read                                return READ;
 "/"                                 return DIVISION;
 "{"                                 return LEFTKEY;
 "}"                                 return RIGHTKEY;
-{entero}[.]{entero}                 error_lexico();
-[^ \r\n\t/a-zA-Z_0-9(){};,*=+\-]+   error_lexico();
+{entero}[.]{entero}                 error_lexico(1);
+[^ \r\n\t/a-zA-Z_0-9(){};,*=+\-]+   error_lexico(2);
 %%
 
-void error_lexico()
+void error_lexico(int n)
 {
-  printf("\nERROR, símbolo no reconocido %s\n",yytext);
+  switch(n) {
+    case 1:
+            printf("\nERROR, numero no reconocido \"%s\"\n",yytext);
+            break;
+    case 2:
+            printf("\nERROR, símbolo no reconocido \"%s\"\n",yytext);
+            break;
+  }
 }
 
 int comprobarNumero(char * n) {
