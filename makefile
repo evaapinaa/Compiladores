@@ -1,8 +1,14 @@
-lexico1: 	lex.yy.c
-			gcc lex.yy.c -lfl -o lexico1
+sintactico: sintactico.tab.c sintactico.tab.h lex.yy.c 
+			gcc lex.yy.c sintactico.tab.c -lfl -o sintactico
 
-lex.yy.c: 	lexico1.l lexico1.h
+sintactico.tab.c sintactico.tab.h: sintactico.y
+								   bison -d -v sintactico.y
+
+lex.yy.c: 	lexico1.l
 			flex lexico1.l
 
 clean:
-			rm -rf lex.yy.c lexico1
+			rm lex.yy.c sintactico.tab.c sintactico.tab.h sintactico.output sintactico
+ 
+run: 
+			./sintactico p

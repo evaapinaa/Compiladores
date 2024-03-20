@@ -1,5 +1,5 @@
 %{
-#include "lexico1.h"
+#include "sintactico.tab.h"
 #define     MAX_INT     2147483648 
 void error_lexico();
 int comprobarNumero(char * d);
@@ -58,7 +58,7 @@ read                                return READ;
                                         }
                                     }
 "("                                 return LPAREN;		
-")"                                 return RPAREN;
+")"                                 return DPAREN;
 ";"                                 return SEMICOLON;
 ","                                 return COMMA;
 "="                                 return ASSIGNOP;
