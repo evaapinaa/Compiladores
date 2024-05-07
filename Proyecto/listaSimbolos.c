@@ -102,11 +102,13 @@ int perteneceTabSimb(char *nombre) {
 }
 */
 
-int perteneceTabSimb(char *nombre) {
-  Lista tabSimb = creaLS();
-  PosicionLista p = buscaLS(tabSimb, nombre);
-  return p != finalLS(tabSimb);
+int perteneceTabSimb(Lista tabSimb, char *nombre) {
+    if (buscaLS(tabSimb, nombre) != finalLS(tabSimb))
+	    return 1;
+    else
+        return 0;
 }
+
 
 void imprimirTabSimb(Lista tabSimb) {
     PosicionLista p = inicioLS(tabSimb);

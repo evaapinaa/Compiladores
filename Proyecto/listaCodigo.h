@@ -48,4 +48,11 @@ void guardaResLC(ListaC codigo, char *res);
 /* Recupera el registro resultado de una lista de código */
 char * recuperaResLC(ListaC codigo);
 
+
+/* Asigna un registro temporal */
+char * asignarRegistroTemporal();
+/* Libera un registro temporal */
+void liberarRegistroTemporal(char *registro);
+
+
 #endif

@@ -21,7 +21,7 @@ int longitudLS(Lista lista);
 PosicionLista inicioLS(Lista lista);
 PosicionLista finalLS(Lista lista);
 PosicionLista siguienteLS(Lista lista, PosicionLista p);
-int perteneceTabSimb(char *nombre);
+int perteneceTabSimb(Lista tabSimb, char *nombre);
 void imprimirTabSimb(Lista tabSimb);
 void insertarTS(char * nombre, Tipo tipo);
 int esConstante(char* nombre);

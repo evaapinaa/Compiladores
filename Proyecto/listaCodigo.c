@@ -18,7 +18,7 @@ struct ListaCRep {
 typedef struct PosicionListaCRep *NodoPtr;
 
 // array registros temporales
-int tablaRegistrosTemporales[10] = {0,0,0,0,0,0,0,0,0,0};
+int tablaRegistrosTemporales[10] = {0};
 
 ListaC creaLC() {
   ListaC nueva = malloc(sizeof(struct ListaCRep));
@@ -119,11 +119,18 @@ char * recuperaResLC(ListaC codigo) {
 }
 
 char * asignarRegistroTemporal() {
+  char aux[32];
   for(int i = 0; i < 10; i++) {
     if(tablaRegistrosTemporales[i] == 0) {
         tablaRegistrosTemporales[i] = 1;
-        String resultado = "$t"
-        return resultado+i;
+        sprintf(aux,"$t%d",i);
+        return strdup(aux);
     }
   }
 }
+
+void liberarRegistroTemporal(char *registro) {
+  int i = atoi(registro+2);
+  tablaRegistrosTemporales[i] = 0;
+}
+
