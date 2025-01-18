@@ -1,0 +1,10 @@
+void prueba4(){
+	const a = 1;
+	
+	do {
+	print "\"a\" vale", a, "\n";
+	a = a - 1;
+	} while (a);
+	
+	print "Final", "\n";
+}

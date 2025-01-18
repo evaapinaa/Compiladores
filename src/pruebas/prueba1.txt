@@ -1,0 +1,19 @@
+void prueba1() {
+    const no_cambia = 2;
+    var cambia;
+    var podria_cambiar = 4;
+    
+    print "Test 1\n";
+    podria_cambiar = no_cambia;
+    cambia = podria_cambiar * no_cambia + (no_cambia + no_cambia);
+    print "no_cambia =";
+    print ( no_cambia );
+    print  "\n" ;
+    print "cambia = ";
+    print ( cambia );
+    print  "\n" ;
+    print "podria_cambia = ";
+    print ( podria_cambiar );
+    print  "\n" ;
+    print "Fin test1\n";
+}
