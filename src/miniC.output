@@ -1,0 +1,880 @@
+Estado 71 conflictos: 1 desplazamiento/reducción
+
+
+Gramática
+
+    0 $accept: program $end
+
+    1 $@1: %empty
+
+    2 program: $@1 VOID ID PARI PARD CORI declarations statement_list CORD
+
+    3 $@2: %empty
+
+    4 declarations: declarations VAR $@2 identifier_list PCOMMA
+
+    5 $@3: %empty
+
+    6 declarations: declarations CONST $@3 identifier_list PCOMMA
+    7             | %empty
+
+    8 identifier_list: asig
+    9                | identifier_list COMMA asig
+
+   10 asig: ID
+   11     | ID ASSIG expression
+
+   12 statement_list: statement_list statement
+   13               | %empty
+
+   14 statement: ID ASSIG expression PCOMMA
+   15          | CORI statement_list CORD
+   16          | IF PARI expression PARD statement ELSE statement
+   17          | IF PARI expression PARD statement
+   18          | WHILE PARI expression PARD statement
+   19          | PRINT print_list PCOMMA
+   20          | READ read_list PCOMMA
+
+   21 print_list: print_item
+   22           | print_list COMMA print_item
+
+   23 print_item: expression
+   24           | CADE
+
+   25 read_list: ID
+   26          | read_list COMMA ID
+
+   27 expression: expression PLUSOP expression
+   28           | expression MINUSOP expression
+   29           | expression ASTER expression
+   30           | expression BARRA expression
+   31           | MINUSOP expression
+   32           | PARI expression PARD
+   33           | ID
+   34           | ENT
+
+
+Terminales con las reglas donde aparecen
+
+    $end (0) 0
+    error (256)
+    VOID (258) 2
+    VAR (259) 4
+    CONST (260) 6
+    IF (261) 16 17
+    ELSE (262) 16
+    WHILE (263) 18
+    PRINT (264) 19
+    READ (265) 20
+    PCOMMA (266) 4 6 14 19 20
+    COMMA (267) 9 22 26
+    PLUSOP (268) 27
+    MINUSOP (269) 28 31
+    ASTER (270) 29
+    BARRA (271) 30
+    ASSIG (272) 11 14
+    PARD (273) 2 16 17 18 32
+    PARI (274) 2 16 17 18 32
+    CORI (275) 2 15
+    CORD (276) 2 15
+    ID <string> (277) 2 10 11 14 25 26 33
+    CADE <string> (278) 24
+    ENT <string> (279) 34
+    NEG (280)
+
+
+No terminales con las reglas donde aparecen
+
+    $accept (26)
+        on left: 0
+    program (27)
+        on left: 2
+        on right: 0
+    $@1 (28)
+        on left: 1
+        on right: 2
+    declarations <codigo> (29)
+        on left: 4 6 7
+        on right: 2 4 6
+    $@2 (30)
+        on left: 3
+        on right: 4
+    $@3 (31)
+        on left: 5
+        on right: 6
+    identifier_list <codigo> (32)
+        on left: 8 9
+        on right: 4 6 9
+    asig <codigo> (33)
+        on left: 10 11
+        on right: 8 9
+    statement_list <codigo> (34)
+        on left: 12 13
+        on right: 2 12 15
+    statement <codigo> (35)
+        on left: 14 15 16 17 18 19 20
+        on right: 12 16 17 18
+    print_list <codigo> (36)
+        on left: 21 22
+        on right: 19 22
+    print_item <codigo> (37)
+        on left: 23 24
+        on right: 21 22
+    read_list <codigo> (38)
+        on left: 25 26
+        on right: 20 26
+    expression <codigo> (39)
+        on left: 27 28 29 30 31 32 33 34
+        on right: 11 14 16 17 18 23 27 28 29 30 31 32
+
+
+Estado 0
+
+    0 $accept: . program $end
+
+    $default  reduce usando la regla 1 ($@1)
+
+    program  ir al estado 1
+    $@1      ir al estado 2
+
+
+Estado 1
+
+    0 $accept: program . $end
+
+    $end  desplazar e ir al estado 3
+
+
+Estado 2
+
+    2 program: $@1 . VOID ID PARI PARD CORI declarations statement_list CORD
+
+    VOID  desplazar e ir al estado 4
+
+
+Estado 3
+
+    0 $accept: program $end .
+
+    $default  aceptar
+
+
+Estado 4
+
+    2 program: $@1 VOID . ID PARI PARD CORI declarations statement_list CORD
+
+    ID  desplazar e ir al estado 5
+
+
+Estado 5
+
+    2 program: $@1 VOID ID . PARI PARD CORI declarations statement_list CORD
+
+    PARI  desplazar e ir al estado 6
+
+
+Estado 6
+
+    2 program: $@1 VOID ID PARI . PARD CORI declarations statement_list CORD
+
+    PARD  desplazar e ir al estado 7
+
+
+Estado 7
+
+    2 program: $@1 VOID ID PARI PARD . CORI declarations statement_list CORD
+
+    CORI  desplazar e ir al estado 8
+
+
+Estado 8
+
+    2 program: $@1 VOID ID PARI PARD CORI . declarations statement_list CORD
+
+    $default  reduce usando la regla 7 (declarations)
+
+    declarations  ir al estado 9
+
+
+Estado 9
+
+    2 program: $@1 VOID ID PARI PARD CORI declarations . statement_list CORD
+    4 declarations: declarations . VAR $@2 identifier_list PCOMMA
+    6             | declarations . CONST $@3 identifier_list PCOMMA
+
+    VAR    desplazar e ir al estado 10
+    CONST  desplazar e ir al estado 11
+
+    $default  reduce usando la regla 13 (statement_list)
+
+    statement_list  ir al estado 12
+
+
+Estado 10
+
+    4 declarations: declarations VAR . $@2 identifier_list PCOMMA
+
+    $default  reduce usando la regla 3 ($@2)
+
+    $@2  ir al estado 13
+
+
+Estado 11
+
+    6 declarations: declarations CONST . $@3 identifier_list PCOMMA
+
+    $default  reduce usando la regla 5 ($@3)
+
+    $@3  ir al estado 14
+
+
+Estado 12
+
+    2 program: $@1 VOID ID PARI PARD CORI declarations statement_list . CORD
+   12 statement_list: statement_list . statement
+
+    IF     desplazar e ir al estado 15
+    WHILE  desplazar e ir al estado 16
+    PRINT  desplazar e ir al estado 17
+    READ   desplazar e ir al estado 18
+    CORI   desplazar e ir al estado 19
+    CORD   desplazar e ir al estado 20
+    ID     desplazar e ir al estado 21
+
+    statement  ir al estado 22
+
+
+Estado 13
+
+    4 declarations: declarations VAR $@2 . identifier_list PCOMMA
+
+    ID  desplazar e ir al estado 23
+
+    identifier_list  ir al estado 24
+    asig             ir al estado 25
+
+
+Estado 14
+
+    6 declarations: declarations CONST $@3 . identifier_list PCOMMA
+
+    ID  desplazar e ir al estado 23
+
+    identifier_list  ir al estado 26
+    asig             ir al estado 25
+
+
+Estado 15
+
+   16 statement: IF . PARI expression PARD statement ELSE statement
+   17          | IF . PARI expression PARD statement
+
+    PARI  desplazar e ir al estado 27
+
+
+Estado 16
+
+   18 statement: WHILE . PARI expression PARD statement
+
+    PARI  desplazar e ir al estado 28
+
+
+Estado 17
+
+   19 statement: PRINT . print_list PCOMMA
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    CADE     desplazar e ir al estado 32
+    ENT      desplazar e ir al estado 33
+
+    print_list  ir al estado 34
+    print_item  ir al estado 35
+    expression  ir al estado 36
+
+
+Estado 18
+
+   20 statement: READ . read_list PCOMMA
+
+    ID  desplazar e ir al estado 37
+
+    read_list  ir al estado 38
+
+
+Estado 19
+
+   15 statement: CORI . statement_list CORD
+
+    $default  reduce usando la regla 13 (statement_list)
+
+    statement_list  ir al estado 39
+
+
+Estado 20
+
+    2 program: $@1 VOID ID PARI PARD CORI declarations statement_list CORD .
+
+    $default  reduce usando la regla 2 (program)
+
+
+Estado 21
+
+   14 statement: ID . ASSIG expression PCOMMA
+
+    ASSIG  desplazar e ir al estado 40
+
+
+Estado 22
+
+   12 statement_list: statement_list statement .
+
+    $default  reduce usando la regla 12 (statement_list)
+
+
+Estado 23
+
+   10 asig: ID .
+   11     | ID . ASSIG expression
+
+    ASSIG  desplazar e ir al estado 41
+
+    $default  reduce usando la regla 10 (asig)
+
+
+Estado 24
+
+    4 declarations: declarations VAR $@2 identifier_list . PCOMMA
+    9 identifier_list: identifier_list . COMMA asig
+
+    PCOMMA  desplazar e ir al estado 42
+    COMMA   desplazar e ir al estado 43
+
+
+Estado 25
+
+    8 identifier_list: asig .
+
+    $default  reduce usando la regla 8 (identifier_list)
+
+
+Estado 26
+
+    6 declarations: declarations CONST $@3 identifier_list . PCOMMA
+    9 identifier_list: identifier_list . COMMA asig
+
+    PCOMMA  desplazar e ir al estado 44
+    COMMA   desplazar e ir al estado 43
+
+
+Estado 27
+
+   16 statement: IF PARI . expression PARD statement ELSE statement
+   17          | IF PARI . expression PARD statement
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 45
+
+
+Estado 28
+
+   18 statement: WHILE PARI . expression PARD statement
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 46
+
+
+Estado 29
+
+   31 expression: MINUSOP . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 47
+
+
+Estado 30
+
+   32 expression: PARI . expression PARD
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 48
+
+
+Estado 31
+
+   33 expression: ID .
+
+    $default  reduce usando la regla 33 (expression)
+
+
+Estado 32
+
+   24 print_item: CADE .
+
+    $default  reduce usando la regla 24 (print_item)
+
+
+Estado 33
+
+   34 expression: ENT .
+
+    $default  reduce usando la regla 34 (expression)
+
+
+Estado 34
+
+   19 statement: PRINT print_list . PCOMMA
+   22 print_list: print_list . COMMA print_item
+
+    PCOMMA  desplazar e ir al estado 49
+    COMMA   desplazar e ir al estado 50
+
+
+Estado 35
+
+   21 print_list: print_item .
+
+    $default  reduce usando la regla 21 (print_list)
+
+
+Estado 36
+
+   23 print_item: expression .
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+
+    $default  reduce usando la regla 23 (print_item)
+
+
+Estado 37
+
+   25 read_list: ID .
+
+    $default  reduce usando la regla 25 (read_list)
+
+
+Estado 38
+
+   20 statement: READ read_list . PCOMMA
+   26 read_list: read_list . COMMA ID
+
+    PCOMMA  desplazar e ir al estado 55
+    COMMA   desplazar e ir al estado 56
+
+
+Estado 39
+
+   12 statement_list: statement_list . statement
+   15 statement: CORI statement_list . CORD
+
+    IF     desplazar e ir al estado 15
+    WHILE  desplazar e ir al estado 16
+    PRINT  desplazar e ir al estado 17
+    READ   desplazar e ir al estado 18
+    CORI   desplazar e ir al estado 19
+    CORD   desplazar e ir al estado 57
+    ID     desplazar e ir al estado 21
+
+    statement  ir al estado 22
+
+
+Estado 40
+
+   14 statement: ID ASSIG . expression PCOMMA
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 58
+
+
+Estado 41
+
+   11 asig: ID ASSIG . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 59
+
+
+Estado 42
+
+    4 declarations: declarations VAR $@2 identifier_list PCOMMA .
+
+    $default  reduce usando la regla 4 (declarations)
+
+
+Estado 43
+
+    9 identifier_list: identifier_list COMMA . asig
+
+    ID  desplazar e ir al estado 23
+
+    asig  ir al estado 60
+
+
+Estado 44
+
+    6 declarations: declarations CONST $@3 identifier_list PCOMMA .
+
+    $default  reduce usando la regla 6 (declarations)
+
+
+Estado 45
+
+   16 statement: IF PARI expression . PARD statement ELSE statement
+   17          | IF PARI expression . PARD statement
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+    PARD     desplazar e ir al estado 61
+
+
+Estado 46
+
+   18 statement: WHILE PARI expression . PARD statement
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+    PARD     desplazar e ir al estado 62
+
+
+Estado 47
+
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+   31           | MINUSOP expression .
+
+    $default  reduce usando la regla 31 (expression)
+
+
+Estado 48
+
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+   32           | PARI expression . PARD
+
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+    PARD     desplazar e ir al estado 63
+
+
+Estado 49
+
+   19 statement: PRINT print_list PCOMMA .
+
+    $default  reduce usando la regla 19 (statement)
+
+
+Estado 50
+
+   22 print_list: print_list COMMA . print_item
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    CADE     desplazar e ir al estado 32
+    ENT      desplazar e ir al estado 33
+
+    print_item  ir al estado 64
+    expression  ir al estado 36
+
+
+Estado 51
+
+   27 expression: expression PLUSOP . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 65
+
+
+Estado 52
+
+   28 expression: expression MINUSOP . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 66
+
+
+Estado 53
+
+   29 expression: expression ASTER . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 67
+
+
+Estado 54
+
+   30 expression: expression BARRA . expression
+
+    MINUSOP  desplazar e ir al estado 29
+    PARI     desplazar e ir al estado 30
+    ID       desplazar e ir al estado 31
+    ENT      desplazar e ir al estado 33
+
+    expression  ir al estado 68
+
+
+Estado 55
+
+   20 statement: READ read_list PCOMMA .
+
+    $default  reduce usando la regla 20 (statement)
+
+
+Estado 56
+
+   26 read_list: read_list COMMA . ID
+
+    ID  desplazar e ir al estado 69
+
+
+Estado 57
+
+   15 statement: CORI statement_list CORD .
+
+    $default  reduce usando la regla 15 (statement)
+
+
+Estado 58
+
+   14 statement: ID ASSIG expression . PCOMMA
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    PCOMMA   desplazar e ir al estado 70
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+
+
+Estado 59
+
+   11 asig: ID ASSIG expression .
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    PLUSOP   desplazar e ir al estado 51
+    MINUSOP  desplazar e ir al estado 52
+    ASTER    desplazar e ir al estado 53
+    BARRA    desplazar e ir al estado 54
+
+    $default  reduce usando la regla 11 (asig)
+
+
+Estado 60
+
+    9 identifier_list: identifier_list COMMA asig .
+
+    $default  reduce usando la regla 9 (identifier_list)
+
+
+Estado 61
+
+   16 statement: IF PARI expression PARD . statement ELSE statement
+   17          | IF PARI expression PARD . statement
+
+    IF     desplazar e ir al estado 15
+    WHILE  desplazar e ir al estado 16
+    PRINT  desplazar e ir al estado 17
+    READ   desplazar e ir al estado 18
+    CORI   desplazar e ir al estado 19
+    ID     desplazar e ir al estado 21
+
+    statement  ir al estado 71
+
+
+Estado 62
+
+   18 statement: WHILE PARI expression PARD . statement
+
+    IF     desplazar e ir al estado 15
+    WHILE  desplazar e ir al estado 16
+    PRINT  desplazar e ir al estado 17
+    READ   desplazar e ir al estado 18
+    CORI   desplazar e ir al estado 19
+    ID     desplazar e ir al estado 21
+
+    statement  ir al estado 72
+
+
+Estado 63
+
+   32 expression: PARI expression PARD .
+
+    $default  reduce usando la regla 32 (expression)
+
+
+Estado 64
+
+   22 print_list: print_list COMMA print_item .
+
+    $default  reduce usando la regla 22 (print_list)
+
+
+Estado 65
+
+   27 expression: expression . PLUSOP expression
+   27           | expression PLUSOP expression .
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    ASTER  desplazar e ir al estado 53
+    BARRA  desplazar e ir al estado 54
+
+    $default  reduce usando la regla 27 (expression)
+
+
+Estado 66
+
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   28           | expression MINUSOP expression .
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+
+    ASTER  desplazar e ir al estado 53
+    BARRA  desplazar e ir al estado 54
+
+    $default  reduce usando la regla 28 (expression)
+
+
+Estado 67
+
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   29           | expression ASTER expression .
+   30           | expression . BARRA expression
+
+    $default  reduce usando la regla 29 (expression)
+
+
+Estado 68
+
+   27 expression: expression . PLUSOP expression
+   28           | expression . MINUSOP expression
+   29           | expression . ASTER expression
+   30           | expression . BARRA expression
+   30           | expression BARRA expression .
+
+    $default  reduce usando la regla 30 (expression)
+
+
+Estado 69
+
+   26 read_list: read_list COMMA ID .
+
+    $default  reduce usando la regla 26 (read_list)
+
+
+Estado 70
+
+   14 statement: ID ASSIG expression PCOMMA .
+
+    $default  reduce usando la regla 14 (statement)
+
+
+Estado 71
+
+   16 statement: IF PARI expression PARD statement . ELSE statement
+   17          | IF PARI expression PARD statement .
+
+    ELSE  desplazar e ir al estado 73
+
+    ELSE      [reduce usando la regla 17 (statement)]
+    $default  reduce usando la regla 17 (statement)
+
+
+Estado 72
+
+   18 statement: WHILE PARI expression PARD statement .
+
+    $default  reduce usando la regla 18 (statement)
+
+
+Estado 73
+
+   16 statement: IF PARI expression PARD statement ELSE . statement
+
+    IF     desplazar e ir al estado 15
+    WHILE  desplazar e ir al estado 16
+    PRINT  desplazar e ir al estado 17
+    READ   desplazar e ir al estado 18
+    CORI   desplazar e ir al estado 19
+    ID     desplazar e ir al estado 21
+
+    statement  ir al estado 74
+
+
+Estado 74
+
+   16 statement: IF PARI expression PARD statement ELSE statement .
+
+    $default  reduce usando la regla 16 (statement)

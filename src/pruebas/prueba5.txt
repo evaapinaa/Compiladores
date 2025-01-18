@@ -1,0 +1,30 @@
+void prueba5(){
+	const a = -1;
+	const b = a * (-6) / 3;
+	var c;
+	var d = 5 + 2 * ( b - a ), e = 9/3;
+	const x = 1;
+	
+	print "Inicio del programa\n";
+	
+	print "Introduzca un valor para la variable \" c \":\n";
+	read c;
+	
+	if(c) print " \" c \" no era nulo . " , " \ n " ;
+	else print " \" c \" si era nulo . " , " \ n " ;
+	
+	while (d) {print " \" d \" vale " , d , " \ n " ;
+	d = d - 1;
+	}
+	
+	//Analizar si A y X son Opuestos
+	if(a+x) print " \" a \"y \" x \" no son opuestos . " , " \ n " ;
+	else print " \" a \"y \" x \" son opuestos . " , " \ n "  ;
+	
+	//Imprimir A - X
+	print (a-x);
+	
+	/* Imprimir e */
+	if (e - a) print "La variable e es más grande que a";	
+	print " Final " ," \ n " ;
+}
